@@ -16,7 +16,7 @@ public class AdjacencyListGraph<T, S> extends Graph<T, S> {
     }
 
     @Override
-    boolean areAdjacent(T item1, T item2) throws GraphException {
+    public boolean areAdjacent(T item1, T item2) {
         if (!vertices.containsKey(item1)) {
             throw new VertexNotExistException("Vertex " + item1 + " does not exist.");
         } else if (!vertices.containsKey(item2)) {
@@ -26,7 +26,7 @@ public class AdjacencyListGraph<T, S> extends Graph<T, S> {
     }
 
     @Override
-    List<T> getNeighbors(T item) throws GraphException {
+    public List<T> getNeighbors(T item) {
         if (!vertices.containsKey(item)) {
             throw new VertexNotExistException("Vertex " + item + " does not exist.");
         }
@@ -34,7 +34,7 @@ public class AdjacencyListGraph<T, S> extends Graph<T, S> {
     }
 
     @Override
-    void addVertex(T item) throws GraphException {
+    public void addVertex(T item) {
         if (vertices.containsKey(item)) {
             throw new VertexAlreadyExistException("Vertex " + item + " already exists.");
         }
@@ -42,7 +42,7 @@ public class AdjacencyListGraph<T, S> extends Graph<T, S> {
     }
 
     @Override
-    void addEdge(T item1, T item2) throws GraphException {
+    public void addEdge(T item1, T item2) {
         if (!vertices.containsKey(item1)) {
             throw new VertexNotExistException("Vertex " + item1 + " does not exist.");
         } else if (!vertices.containsKey(item2)) {
@@ -53,7 +53,7 @@ public class AdjacencyListGraph<T, S> extends Graph<T, S> {
     }
 
     @Override
-    S getVertexValue(T item) throws GraphException {
+    public S getVertexValue(T item) {
         if (!vertices.containsKey(item)) {
             throw new VertexNotExistException("Vertex " + item + " does not exist.");
         }
@@ -61,7 +61,7 @@ public class AdjacencyListGraph<T, S> extends Graph<T, S> {
     }
 
     @Override
-    S setVertexValue(T item, S value) throws GraphException{
+    public S setVertexValue(T item, S value) {
         if (!vertices.containsKey(item)) {
             throw new VertexNotExistException("Vertex " + item + " does not exist.");
         }
@@ -103,10 +103,10 @@ public class AdjacencyListGraph<T, S> extends Graph<T, S> {
          * @param neighbor the vertex we want to add as a neighbor of this vertex
          * @throws GraphException if neighbor is already adjacent to this vertex
          */
-        public void addNeighbor(AdjacencyListVertex<T, S> neighbor) throws GraphException {
+        public void addNeighbor(AdjacencyListVertex<T, S> neighbor) {
             for (AdjacencyListVertex<T, S> vertex : neighbors) {
                 if (vertex.getItem().equals(neighbor.getItem())) {
-                    throw new GraphException("Vertex " + neighbor.getItem() + " already exists.");
+                    throw new VertexAlreadyExistException("Vertex " + neighbor.getItem() + " already exists.");
                 }
             }
             neighbors.add(neighbor);
@@ -161,7 +161,7 @@ public class AdjacencyListGraph<T, S> extends Graph<T, S> {
     /**
      * Exception for when an operation attempts to use a vertex that is not in the graph.
      */
-    public static class VertexNotExistException extends GraphException {
+    static class VertexNotExistException extends GraphException {
         public VertexNotExistException() {
             super();
         }
@@ -174,7 +174,7 @@ public class AdjacencyListGraph<T, S> extends Graph<T, S> {
     /**
      * Exception for an operation attempts to create/add a new vertex which is already in the graph.
      */
-    public static class VertexAlreadyExistException extends GraphException {
+    static class VertexAlreadyExistException extends GraphException {
         public VertexAlreadyExistException() {
             super();
         }
