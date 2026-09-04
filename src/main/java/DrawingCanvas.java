@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 import static java.lang.Integer.min;
 
+/**
+ * Canvas for drawing maps.
+ * @param <E> the type of element to be stored to represent the state of the map.
+ */
 public class DrawingCanvas<E> extends JPanel {
     private List<List<E>> drawingGrid;
 
@@ -23,6 +27,16 @@ public class DrawingCanvas<E> extends JPanel {
     private int intX = 0;
     private int intY = 0;
 
+    /**
+     * Constructor for DrawingCanvas. Creates map within the dimensions canvasWidth by canvasHeight in a grid of the
+     * form gridRows by gridColumns.
+     * @param gridRows the number of pixel rows in the map
+     * @param gridColumns the number of pixel columns in the map
+     * @param canvasWidth the maximum width of the canvas
+     * @param canvasHeight the maximum height of the canvas
+     * @param paintedValue the value to store at a point in the grid when painted
+     * @param notPaintedValue the value to store at a point in the grid when not painted
+     */
     public DrawingCanvas(int gridRows, int gridColumns,
                          int canvasWidth, int canvasHeight,
                          E paintedValue, E notPaintedValue) {
@@ -66,6 +80,11 @@ public class DrawingCanvas<E> extends JPanel {
         });
     }
 
+    /**
+     * Paint the pixel at which the coordinate (x, y) is located within.
+     * @param x the horizontal coordinate to paint at
+     * @param y the vertical coordinate to paint at
+     */
     private void drawRect(int x, int y) {
         int column = x / cellSize;
         int row = y / cellSize;
